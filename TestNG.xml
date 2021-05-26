@@ -6,7 +6,7 @@
         <listener class-name="reports.ExtentListener"/>
     </listeners>
 
-    <test name="Facebook Test">
+    <test name="Insent.ai Test">
         <classes>
             <class name="com.framework.tests.LoginPageTest"/>
         </classes>

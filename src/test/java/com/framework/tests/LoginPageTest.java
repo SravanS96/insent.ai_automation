@@ -29,7 +29,7 @@ public class LoginPageTest extends TestBase {
 
     @Test
     public void TC_03_Login_with_valid_username_only (){
-        boolean success = loginPage.userLogin(prop.getProperty("username"),"bhksdfbgksgbkjkj");
+        boolean success = loginPage.userLogin(prop.getProperty("username"),"bhksdfbj");
         Assert.assertFalse(success, "User Can able to login with wrong credentials");
     }
 
@@ -38,5 +38,17 @@ public class LoginPageTest extends TestBase {
     public void TC_04_Login_with_valid_password_only (){
         boolean success = loginPage.userLogin("abc@gamil.com",prop.getProperty("password"));
         Assert.assertFalse(success, "User Can able to login with wrong credentials");
+    }
+
+    @Test
+    public void TC_05_Login_without_password (){
+        loginPage.setUsername(prop.getProperty("username")).setPassword_Field("").clickLoginButton();
+        Assert.assertTrue(loginPage.verifyEmptyPasswordError(), "User Can able to login with wrong credentials");
+    }
+
+    @Test
+    public void TC_06_Login_without_username (){
+        loginPage.setUsername("").setPassword_Field("password").clickLoginButton();
+        Assert.assertTrue(loginPage.verifyEmptyEmailError(),"User Can able to login with wrong credentials");
     }
 }
