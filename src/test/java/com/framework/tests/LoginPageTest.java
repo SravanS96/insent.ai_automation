@@ -23,7 +23,7 @@ public class LoginPageTest extends TestBase {
     }
     @Test
     public void TC_02_Login_with_invalid_credentials(){
-        boolean success = loginPage.userLogin("abc@gamil.com","testing123");
+        boolean success = loginPage.userLogin("abc@gamil.com","uejhb1234");
         Assert.assertFalse(success, "User Can able to login with wrong credentials");
     }
 
