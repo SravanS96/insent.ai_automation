@@ -22,6 +22,10 @@ public class PageActionUtils {
 
     }
 
+    public static boolean verifyElementPresence(By element){
+        return  getElement(element).isDisplayed();
+    }
+
     public static void typeIntoTextBox(By element, String text){
         try {
             getElement(element).sendKeys(text);
