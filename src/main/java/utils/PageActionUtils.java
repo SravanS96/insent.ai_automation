@@ -1,15 +1,14 @@
 package utils;
 
 import driverFactory.DriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Listeners;
 import reports.ExtentLogger;
 
+@Listeners(reports.ExtentListener.class)
 public class PageActionUtils {
 
     public static void click(By element){
@@ -51,6 +50,21 @@ public class PageActionUtils {
         return webDriverWait.until(ExpectedConditions.presenceOfElementLocated(element));
     }
 
+    public static void switchToFrame(By element){
+        DriverManager.getDriver().switchTo().frame(getElement(element));
+    }
+
+    public static void switchToFrame(String frame){
+        DriverManager.getDriver().switchTo().frame(frame);
+    }
+
+    public static void switchToFrame(int frameNum){
+        DriverManager.getDriver().switchTo().frame(frameNum);
+    }
+
+    public static void switchToDefaultContent(){
+        DriverManager.getDriver().switchTo().defaultContent();
+    }
 
 
 }

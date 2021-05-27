@@ -25,13 +25,14 @@ public class TestBase {
     }
 
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp(){
         Drivers.launchBrowser(prop.getProperty("browser"));
+        DriverManager.getDriver().manage().deleteAllCookies();
         DriverManager.getDriver().get(prop.getProperty("url"));
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown(){
         Drivers.closeBrowser();
     }

@@ -1,9 +1,10 @@
 package pageObjects;
 
 import org.openqa.selenium.By;
+import org.testng.annotations.Listeners;
 import utils.PageActionUtils;
 
-
+@Listeners(reports.ExtentListener.class)
 public class LoginPage {
 
     private By email_Field=By.name("email");
