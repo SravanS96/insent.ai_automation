@@ -11,15 +11,21 @@ import reports.ExtentLogger;
 @Listeners(reports.ExtentListener.class)
 public class PageActionUtils {
 
-    public static void click(By element){
+    public static void click(By element) {
         try {
             getElement(element).click();
             ExtentLogger.info("Element Clicked " + element.toString());
-        } catch (ElementClickInterceptedException clickInterceptedException){
+        } catch (ElementClickInterceptedException clickInterceptedException) {
             ExtentLogger.fail("Click Intercepted ", clickInterceptedException.fillInStackTrace());
         }
 
     }
+
+    public static void hoverOnElement(By element){
+        Actions actions = new Actions(DriverManager.getDriver());
+        actions.moveToElement(getElement(element)).perform();
+    }
+
 
     public static boolean verifyElementPresence(By element){
         return  getElement(element).isDisplayed();
@@ -27,7 +33,9 @@ public class PageActionUtils {
 
     public static void typeIntoTextBox(By element, String text){
         try {
-            getElement(element).sendKeys(text);
+            WebElement webElement = getElement(element);
+            webElement.clear();
+            webElement.sendKeys(text);
             ExtentLogger.pass( text + "  entered Successfully");
         }catch (ElementNotInteractableException notInteractableException){
             ExtentLogger.fail("Click Intercepted ", notInteractableException.fillInStackTrace());

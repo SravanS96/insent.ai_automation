@@ -3,6 +3,7 @@ package com.framework.tests;
 import com.framework.base.TestBase;
 import driverFactory.DriverManager;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -18,12 +19,19 @@ public class HomePageTest extends TestBase {
 
 
     @Test
-    public void TC_01_This_is_Test() throws InterruptedException {
+    public void TC_01_add_First_Name_and_Last_Name() throws InterruptedException {
 
         loginPage.userLogin(prop.getProperty("username"), prop.getProperty("password"));
-       String botText=homePage.saveFirstName_and_LastName("Sravan", "Kumar");
+        String botText=homePage.saveFirstName_and_LastName("Sravan", "Kumar");
         Assert.assertEquals(botText,"Hi there, welcomeSravanKumar");
 
+    }
+
+    @Test
+    public void TC_02_add_Message() throws InterruptedException {
+        loginPage.userLogin(prop.getProperty("username"), prop.getProperty("password"));
+        String actual = homePage.add_Show_a_Message("Welcome to Insent.ai");
+        Assert.assertEquals(actual,"Welcome to Insent.ai");
     }
 
 

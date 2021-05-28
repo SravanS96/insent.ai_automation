@@ -22,10 +22,12 @@ public class HomePage {
     private final By select_Field_Input_LastName=By.xpath("//input[@id='react-select-3-input']");
     private final By default_value_First=By.xpath("//input[@placeholder='Please enter a default value']");
     private final By toast_message =By.xpath("//div[@role='alert']");
-    private final By bot_Frame =By.id("insent-iframe");
     private final By bot_Welcome_text =By.xpath("//*[@id='insent-chat-widget']/div/div/div[1]/div/div[1]/div");
+    private final By message_TextBox =By.xpath("//*[@id=\"root\"]/div[3]/div[2]/div/div/div[3]/div/form/div/div[2]/div/div[2]/div[2]/div[2]/div/div[1]/div/div[2]/div[2]/div/div/div/div/div[2]/div[1]/div[2]/div/div[2]");
     private final By bot_Frame_collapse_btn =By.xpath("//div[@class='sc-bbEPYs hVxZvE']");
     private final By bot_Hi_there_message =By.xpath("//iframe[@id='insent-iframe']//div[@class='sc-bHwgHz lgWmIK']");
+    private final By addNewStepButton =By.xpath("//div[text()='Add new step']/..");
+    private  String  addNewStep_menu = "//div[contains(text(),'%replaceable%')]";
 
 
 
@@ -50,14 +52,24 @@ public class HomePage {
     }
     public HomePage click_On_ConversationFlow(){
         PageActionUtils.click(conversation_Flow);
-
         return this;
     }
     public String click_On_SaveConversationFlow(){
         PageActionUtils.click(Save_conversation_Flow);
-       String saveMessage=PageActionUtils.getElementText(toast_message);
+        String saveMessage=PageActionUtils.getElementText(toast_message);
         return saveMessage;
     }
+
+    public HomePage clickAddNewStep(String menu, String subMenu) throws InterruptedException {
+        PageActionUtils.click(addNewStepButton);
+        PageActionUtils.hoverOnElement(By.xpath(addNewStep_menu.replace("%replaceable%",menu)));
+        Thread.sleep(2000);
+        PageActionUtils.hoverOnElement(By.xpath(addNewStep_menu.replace("%replaceable%",subMenu)));
+        Thread.sleep(2000);
+        PageActionUtils.click(By.xpath(addNewStep_menu.replace("%replaceable%",subMenu)));
+        return  this;
+    }
+
     public HomePage click_On_Simulator(){
         PageActionUtils.click(Simulator);
         PageActionUtils.switchToFrame(0);
@@ -108,6 +120,17 @@ public class HomePage {
         return getBotText;
     }
 
+    public String add_Show_a_Message(String msg) throws InterruptedException {
+        click_On_Conversations();
+        click_On_Test();
+        click_On_ConversationFlow();
+        clickAddNewStep("Message", "Show a message");
+        PageActionUtils.typeIntoTextBox(message_TextBox, msg);
+        click_On_SaveConversationFlow();
+        Thread.sleep(3000);
+        click_On_SaveConversationFlow();
+        return  PageActionUtils.getElementText(message_TextBox);
+    }
 
 
 
